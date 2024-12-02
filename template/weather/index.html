@@ -287,6 +287,72 @@ h1 {
     animation-delay: -0.16s;
 }
 
+.favorites-input {
+    background-color: #fff1c4;
+    border: 3px solid black;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    transition: 0.2s ease;
+}
+
+.favorites-input h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.favorites-input form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.favorites-input input {
+    flex: 1;
+    height: 46px;
+    outline: none;
+    font-size: 1.07rem;
+    padding: 0 17px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #ffe4d2;
+    transition: 0.3s ease;
+}
+
+.favorites-input input:focus {
+    padding: 0 16px;
+    border: 2px solid black;
+    box-shadow: 5px 5px 3px #444545;
+}
+
+.favorites-input .submit-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 0;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: black;
+    background: #d8eeff;
+    transition: 0.2s ease;
+}
+
+.favorites-input .submit-btn:hover {
+    background: black;
+    color: white;
+    box-shadow: 5px 5px 3px #444545;
+}
+
+@media (max-width: 750px) {
+    .favorites-input input {
+        width: 100%;
+    }
+}
+
 @keyframes sk-bouncedelay {
 
     0%,
