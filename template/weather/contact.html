@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact Us</title>
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="./static/images/weather-news.png" />
+        <link rel="stylesheet" href="styles.css" />
+        <!-- Import Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;500;600;700&display=swap"
+            rel="stylesheet" />
+        <style>
+                    /* General Styling */
+                    @import url('https://fonts.googleapis.com/css2?family=Merienda:wght@400;500;600;700&display=swap');
+
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                        font-family: 'Merienda', cursive;
+                    }
+
+                    html, body {
+                height: 100%;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+            }
+
+                                body {
+                                    background: #e5ffe1;
+                                    margin: 0;
+                                }
+
+                                /* Navbar */
+                                .navbar {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            background-color: #cfffc8;
+                            padding: 10px 30px;
+                            border-bottom: 2px solid black;
+                        }
+
+                        .navbar-brand a{
+                            text-decoration: none;
+                            color: black;
+                        }
+
+                        .navbar-links {
+                            display: flex;
+                            gap: 20px;
+                            margin-left: auto;
+                            margin-right: 1%;
+                        }
+
+                        .nav-link {
+                            text-decoration: none;
+                            color: black;
+                            font-size: 1.1rem;
+                            font-weight: 500;
+                            transition: 0.2s ease;
+                        }
+
+                        .nav-link:hover {
+                            color: #444545;
+                        }
+
+                        .navbar-buttons .auth-btn {
+                            padding: 8px 15px;
+                            border: 2px solid black;
+                            border-radius: 4px;
+                            background-color: #ffe4d2;
+                            cursor: pointer;
+                            transition: 0.2s ease;
+                        }
+
+                        .navbar-buttons .auth-btn:hover {
+                            background-color: black;
+                            color: white;
+                            box-shadow: 3px 3px 3px #444545;
+                        }
+
+                        /* Contact Section */
+                        .contact-container {
+                            max-width: 600px;
+                            margin: 50px auto;
+                            padding: 20px;
+                            background-color: #fff3cc;
+                            border-radius: 10px;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                        }
+
+                        h1 {
+                            text-align: center;
+                            color: black;
+                        }
+
+                        .contact-info,
+                        .contact-form {
+                            margin: 20px 0;
+                        }
+
+                        .contact-info {
+                            text-align: center;
+                        }
+
+                        .contact-info p {
+                            margin: 10px 0;
+                            font-size: 1.2rem;
+                        }
+
+                        .contact-form label {
+                            display: block;
+                            margin: 10px 0 5px;
+                            font-weight: bold;
+                        }
+
+                        .contact-form input,
+                        .contact-form textarea {
+                            background-color: #ffe5e5;
+                            width: 100%;
+                            padding: 10px;
+                            margin-bottom: 15px;
+                            border: 1px solid #ccc;
+                            border-radius: 5px;
+                            font-size: 1rem;
+                        }
+
+                        .contact-form textarea {
+                            height: 100px;
+                        }
+
+                        .contact-form button {
+                            width: 100%;
+                padding: 10px 0;
+                cursor: pointer;
+                outline: none;
+                border: 2px solid black;
+                border-radius: 4px;
+                font-size: 1rem;
+                color: black;
+                background: #d8eeff;
+                transition: 0.2s ease;
+                        }
+
+                        .contact-form button:hover {
+                            background: black;
+                color: white;
+                box-shadow: 5px 5px 3px #444545;
+                        }
+
+                        /* Footer */
+                        .footer {
+                text-align: center;
+                padding: 0.7em;
+                background-color: #222;
+                color: #fff;
+                margin-top: auto; /* This will push the footer to the bottom */
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a href="/home"><h2>Weather-Forecast ⛅</h2></a>
+            </div>
+            <div class="navbar-links">
+                <a href="/home" class="nav-link">Home</a>
+                <a href="/aboutus" class="nav-link">About Us</a>
+                <a href="/contactus" class="nav-link">Contact Us</a>
+            </div>
+            <div class="navbar-buttons">
+                <a href="/signup"
+                    ><button class="auth-btn">Login/Sign Up</button></a
+                >
+            </div>
+        </nav>
+
+        <!-- Contact Section -->
+        <div class="contact-container">
+            <h1>Contact Us</h1>
+
+            <div class="contact-info">
+                <p>
+                    If you have any questions, feedback, or inquiries, feel free
+                    to reach out to us using the form below or through our
+                    contact details.
+                </p>
+            </div>
+
+            <div class="contact-form">
+                <form
+                    action="https://formsubmit.co/bk784@nau.edu"
+                    method="post">
+                    <label for="name">Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Your full name"
+                        required />
+
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Your email address"
+                        required />
+
+                    <label for="message">Message</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Write your message here"
+                        required></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Weather-Forecast ⛅. All rights reserved.</p>
+        </footer>
+    </body>
+</html>

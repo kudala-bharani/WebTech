@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Weather Forecast</title>
+    <link rel="icon" type="image/x-icon" href="./static/images/weather-news.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@600&family=Oswald&family=Tektur:wght@900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@600&family=Tangerine:wght@700&display=swap" rel="stylesheet">
+  <!--  <script src="script.js" defer></script>-->
+</head>
+
+
+<style>
+    /* Import Google font - Merienda */
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Merienda', cursive;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background: #e5ffe1;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cfffc8;
+    padding: 10px 30px;
+    border-bottom: 2px solid black;
+}
+
+.navbar-brand a{
+    text-decoration: none;
+    color: black;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+    margin-left: auto;
+    margin-right: 1%;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #444545;
+}
+
+.navbar-buttons .auth-btn {
+    padding: 8px 15px;
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: #ffe4d2;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.navbar-buttons .auth-btn:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 3px 3px 3px #444545;
+}
+
+h1 {
+    background: #e5ffe1;
+    font-size: 4rem;
+    text-align: center;
+    padding: 30px 0;
+    color: black;
+    display: none;
+    /* Hide the original large heading */
+}
+
+.container {
+    display: flex;
+    gap: 35px;
+    padding: 30px;
+    {% if not user %}
+        margin-top: 5%;
+    {% endif %}
+}
+
+.weather-input {
+    width: 550px;
+    margin-top: 1%;
+}
+
+.weather-input input {
+    height: 46px;
+    width: 100%;
+    outline: none;
+    font-size: 1.07rem;
+    padding: 0 17px;
+    margin: 10px 0 20px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #ffe4d2;
+}
+
+.weather-input input:focus {
+    padding: 0 16px;
+    border: 2px solid black;
+    box-shadow: 5px 5px 3px #444545;
+}
+
+.weather-input .separator {
+    height: 1px;
+    width: 100%;
+    margin: 25px 0;
+    background: #BBBBBB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-input .separator::before {
+    content: "or";
+    color: #6C757D;
+    font-size: 1.18rem;
+    padding: 0 15px;
+    margin-top: -4px;
+    background: #e5ffe1;
+}
+
+.weather-input button {
+    width: 100%;
+    padding: 10px 0;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: black;
+    background: #d8eeff;
+    transition: 0.2s ease;
+}
+
+.weather-input .search-btn:hover {
+    background: black;
+    color: white;
+    box-shadow: 5px 5px 3px #444545;
+}
+
+.weather-input .location-btn {
+    background: #d8eeff;
+}
+
+.weather-input .location-btn:hover {
+    background: black;
+    color: white;
+    box-shadow: 5px 5px 3px #444545;
+}
+
+.weather-data {
+    width: 100%;
+}
+
+.weather-data .current-weather {
+    color: black;
+    background: #ffd2d2;
+    border-radius: 15px;
+    padding: 20px 70px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    border: 4px solid black;
+    transition: 0.2s ease;
+}
+
+.weather-data .current-weather:hover {
+    box-shadow: 10px 10px 5px rgb(104, 104, 104);
+}
+
+.current-weather h2 {
+    font-weight: 700;
+    font-size: 1.7rem;
+}
+
+.weather-data h6 {
+    margin-top: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.current-weather .icon {
+    text-align: center;
+}
+
+.current-weather .icon img {
+    max-width: 120px;
+    margin-top: -15px;
+}
+
+.current-weather .icon h6 {
+    margin-top: -10px;
+    text-transform: capitalize;
+}
+
+.days-forecast h2 {
+    margin: 20px 0;
+    font-size: 1.5rem;
+}
+
+.days-forecast .weather-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.weather-cards .card {
+    color: black;
+    padding: 18px 16px;
+    list-style: none;
+    width: calc(100% / 5);
+    background: #fff1c4;
+    border-radius: 15px;
+    border: 3px solid black;
+    transition: 0.2s ease;
+
+}
+
+.weather-cards .card:hover {
+    box-shadow: 10px 10px 5px #6f7071;
+}
+
+.weather-cards .card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.weather-cards .card img {
+    max-width: 70px;
+    margin: 5px 0 -12px 0;
+}
+
+/* Loading Indicator Styles */
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.spinner {
+    width: 70px;
+    text-align: center;
+}
+
+.spinner>div {
+    width: 18px;
+    height: 18px;
+    background-color: #333;
+    border-radius: 100%;
+    display: inline-block;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+    animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+    animation-delay: -0.16s;
+}
+
+@keyframes sk-bouncedelay {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1.0);
+    }
+}
+
+/* Error Message Styles */
+.error-message {
+    background-color: #ffdddd;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Enhance input styles */
+.city-input {
+    transition: all 0.3s ease;
+    border: 2px solid #ccc;
+}
+
+.city-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+@media (max-width: 1400px) {
+    .weather-data .current-weather {
+        padding: 20px;
+    }
+
+    .weather-cards {
+        flex-wrap: wrap;
+    }
+
+    .weather-cards .card {
+        width: calc(100% / 4 - 15px);
+    }
+}
+
+@media (max-width: 1200px) {
+    .weather-cards .card {
+        width: calc(100% / 3 - 15px);
+    }
+}
+
+@media (max-width: 950px) {
+    .weather-input {
+        width: 450px;
+    }
+
+    .weather-cards .card {
+        width: calc(100% / 2 - 10px);
+    }
+}
+
+@media (max-width: 750px) {
+    h1 {
+        font-size: 1.45rem;
+        padding: 16px 0;
+    }
+
+    .container {
+        flex-wrap: wrap;
+        padding: 15px;
+    }
+
+    .weather-input {
+        width: 100%;
+    }
+
+    .weather-data h2 {
+        font-size: 1.35rem;
+    }
+}
+
+.footer {
+    text-align: center;
+    padding: 0.7em;
+    background-color: #222;
+    color: #fff;
+    margin-top: auto;
+    /* This will push the footer to the bottom */
+    width: 100%;
+}
+
+.current-weather .details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.current-weather .details h6 {
+    margin-top: 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.current-weather .icon h6:last-child {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.weather-cards .card h6 {
+    font-size: 0.9rem;
+    margin: 3px 0;
+}
+
+@media (max-width: 750px) {
+    .current-weather {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .current-weather .details,
+    .current-weather .icon {
+        width: 100%;
+    }
+}
+
+.unit-toggle {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 1rem;
+    color: black;
+}
+
+.unit-toggle label {
+    cursor: pointer;
+}
+
+.unit-toggle {
+    all: unset;
+    /* Reset all inherited styles */
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 1rem;
+    color: black;
+    box-shadow: none;
+    /* Remove unwanted box-shadow */
+    
+}
+
+.unit-toggle input[type="radio"] {
+    margin: 0;
+    /* Remove unwanted margin */
+    width: auto;
+    /* Ensure default size */
+    height: auto;
+    box-shadow: none;
+}
+
+.unit-toggle label {
+    cursor: pointer;
+    font-size: 1rem;
+    color: black;
+}
+
+#welcome{
+    margin-top: 2%;
+}
+</style>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="/home"><h2>Weather-Forecast ⛅</h2></a>
+        </div>
+        
+        <div class="navbar-links">
+            <a href="/home" class="nav-link">Home</a>
+            <a href="/aboutus" class="nav-link">About Us</a>
+            <a href="/contactus" class="nav-link">Contact Us</a>
+        </div>
+        
+
+        
+        <div class="navbar-buttons">
+            {% if user %}
+            <a href="{% url 'logout' %}"><button class="auth-btn">Logout</button></a>
+            {% else %}
+            <a href="{% url 'login' %}"><button class="auth-btn">Login/Sign Up</button></a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% if user %}
+    <div id="welcome">
+        <h2 align="center"> Welcome {{user.name}}!</h2>
+    </div>
+    
+    {% endif %}
+
+    <div class="container">
+        
+        <div class="weather-input">
+        <h2>Enter a City Name</h2>
+        
+    
+        <input type="text" class="city-input" placeholder="E.g., New York, London, Tokyo">
+        <button class="search-btn">Search</button>
+        <div class="separator"></div>
+        <button class="location-btn">Use Current Location</button>
+
+        <div class="unit-toggle">
+        <label for="unit">Temperature Unit:</label>
+        <input type="radio" id="celsius" name="unit" value="C" checked>
+        <label for="celsius">°C</label>
+        <input type="radio" id="fahrenheit" name="unit" value="F">
+        <label for="fahrenheit">°F</label>
+    </div>
+    </div>
+
+        <div class="weather-data">
+            <div class="current-weather">
+                <div class="details">
+                    <h2>_______ ( ______ )</h2>
+                    <h6>Temperature: __°C</h6>
+                    <h6>Wind: __ M/S</h6>
+                    <h6>Humidity: __%</h6>
+                </div>
+            </div>
+            <br>
+            <hr color="#bbbbbb">
+
+            
+            <div class="days-forecast">
+                <h2>5-Day Forecast</h2>
+                <ul class="weather-cards">
+                    <li class="card">
+                        <h3>( ______ )</h3>
+                        <h6>Temp: __C</h6>
+                        <h6>Wind: __ M/S</h6>
+                        <h6>Humidity: __%</h6>
+                    </li>
+                    <li class="card">
+                        <h3>( ______ )</h3>
+                        <h6>Temp: __C</h6>
+                        <h6>Wind: __ M/S</h6>
+                        <h6>Humidity: __%</h6>
+                    </li>
+                    <li class="card">
+                        <h3>( ______ )</h3>
+                        <h6>Temp: __C</h6>
+                        <h6>Wind: __ M/S</h6>
+                        <h6>Humidity: __%</h6>
+                    </li>
+                    <li class="card">
+                        <h3>( ______ )</h3>
+                        <h6>Temp: __C</h6>
+                        <h6>Wind: __ M/S</h6>
+                        <h6>Humidity: __%</h6>
+                    </li>
+                    <li class="card">
+                        <h3>( ______ )</h3>
+                        <h6>Temp: __C</h6>
+                        <h6>Wind: __ M/S</h6>
+                        <h6>Humidity: __%</h6>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="days-forecast">
+                {% if favorites %}
+                <h2>Favorite Cities' Forecast</h2>
+                {% endif %}
+                <ul class="weather-cards">
+                    {% for city in favorites %}
+                    <li class="card">
+    <h3>{{ city.city }}</h3>
+    <img src="https://openweathermap.org/img/wn/{{ city.weather.weather.0.icon }}@2x.png" alt="{{ city.weather.weather.0.description }}">
+    <h6>Temp: {{ city.weather.main.temp|add:"-273"}}°C</h6>
+    <h6>Wind: {{ city.weather.wind.speed }} M/S</h6>
+    <h6>Humidity: {{ city.weather.main.humidity }}%</h6>
+</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            {% if user %}
+  {% if not user.city1 and not user.city2 and not user.city3 and not user.city4 and not user.city5 %}
+    <div class="favorites-input">
+      <h2>Add Your Favorite Cities</h2>
+      <form id="favorites-form" method="POST" action="/addfav">
+        {% csrf_token %}
+        <input type="text" id="city1" name="city1" placeholder="City 1">
+        <input type="text" id="city2" name="city2" placeholder="City 2">
+        <input type="text" id="city3" name="city3" placeholder="City 3">
+        <input type="text" id="city4" name="city4" placeholder="City 4">
+        <input type="text" id="city5" name="city5" placeholder="City 5">
+        <button type="submit" class="submit-btn">Save Favorites</button>
+      </form>
+    </div>
+  {% endif %}
+{% endif %}
+           
+        </div>
+    </div>
+
+    <!-- Add 5 fields which takes input from user and adds the fields as favouites in database with city1, city2, etc..-->
+    
+    <footer class="footer">
+        <p>&copy; 2024 Weather-Forecast ⛅. All rights reserved.</p>
+    </footer>
+</body>
+
+
+<script>
+    // Improved script.js
+const cityInput = document.querySelector(".city-input");
+const searchButton = document.querySelector(".search-btn");
+const locationButton = document.querySelector(".location-btn");
+const currentWeatherDiv = document.querySelector(".current-weather");
+const weatherCardsDiv = document.querySelector(".weather-cards");
+const loadingIndicator = document.createElement('div');
+
+const API_KEY = "a5ad93f8453458c3bbdca94da885b0ab";
+
+// Create loading indicator
+loadingIndicator.classList.add('loading-indicator');
+loadingIndicator.innerHTML = `
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+`;
+
+// Utility functions
+const showLoading = (container) => {
+    container.innerHTML = '';
+    container.appendChild(loadingIndicator);
+};
+
+const hideLoading = () => {
+    if (loadingIndicator.parentElement) {
+        loadingIndicator.parentElement.removeChild(loadingIndicator);
+    }
+};
+
+const displayErrorMessage = (message, container) => {
+    container.innerHTML = `
+        <div class="error-message">
+            <p>${message}</p>
+        </div>
+    `;
+};
+
+// Input validation
+const validateCityInput = (cityName) => {
+    if (!cityName) return "";
+    // Remove any non-alphabetic characters and check length
+    const sanitizedName = cityName.replace(/[^a-zA-Z\s]/g, '').trim();
+    return sanitizedName.length >= 2 && sanitizedName.length <= 50;
+};
+
+const createWeatherCard = (cityName, weatherItem, index) => {
+    // Format date to be more readable
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { 
+            weekday: 'short', 
+            month: 'short', 
+            day: 'numeric' 
+        });
+    };
+
+    // Helper function to convert pressure from hPa to mmHg
+    const convertPressure = (pressureHpa) => {
+        return (pressureHpa * 0.750062).toFixed(1);
+    };
+
+    // Helper function to format time
+    const formatTime = (timestamp, timezone) => {
+        const date = new Date(timestamp * 1000);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    };
+
+    if(index === 0) { // Main weather card
+        return `<div class="details">
+                    <h2>${cityName} (${formatDate(weatherItem.dt_txt)})</h2>
+                    <h6>Temperature: ${(weatherItem.main.temp - 273.15).toFixed(1)}°C</h6>
+                    <h6>Feels Like: ${(weatherItem.main.feels_like - 273.15).toFixed(1)}°C</h6>
+                    <h6>Wind: ${weatherItem.wind.speed.toFixed(1)} M/S</h6>
+                    <h6>Humidity: ${weatherItem.main.humidity}%</h6>
+                    <h6>Pressure: ${convertPressure(weatherItem.main.pressure)} mmHg</h6>
+                    <h6>Wind Direction: ${getWindDirection(weatherItem.wind.deg)}</h6>
+                    ${weatherItem.rain ? `<h6>Precipitation: ${(weatherItem.rain['1h'] || weatherItem.rain['3h'] || 0).toFixed(1)} mm</h6>` : ''}
+                </div>
+                <div class="icon">
+                    <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
+                    <h6>${weatherItem.weather[0].description}</h6>
+                    <h6>Detailed: ${getDetailedWeatherDescription(weatherItem.weather[0].description)}</h6>
+                </div>`;
+    } else { // Forecast cards
+        return `<li class="card">
+                    <h3>${formatDate(weatherItem.dt_txt)}</h3>
+                    <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
+                    <h6>Temp: ${(weatherItem.main.temp - 273.15).toFixed(1)}°C</h6>
+                    <h6>Feels Like: ${(weatherItem.main.feels_like - 273.15).toFixed(1)}°C</h6>
+                    <h6>Wind: ${weatherItem.wind.speed.toFixed(1)} M/S</h6>
+                    <h6>Wind Direction: ${getWindDirection(weatherItem.wind.deg)}</h6>
+                    <h6>Humidity: ${weatherItem.main.humidity}%</h6>
+                    ${weatherItem.rain ? `<h6>Precipitation: ${(weatherItem.rain['1h'] || weatherItem.rain['3h'] || 0).toFixed(1)} mm</h6>` : ''}
+                </li>`;
+    }
+};
+
+// New helper functions
+function getWindDirection(degrees) {
+    const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 
+                        'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+    const index = Math.round(degrees / 22.5) % 16;
+    return directions[index];
+}
+
+function getDetailedWeatherDescription(description) {
+    const descriptions = {
+        'clear sky': 'Perfect clear conditions, great for outdoor activities',
+        'few clouds': 'Mostly sunny with minimal cloud cover',
+        'scattered clouds': 'Partially cloudy with some sun',
+        'broken clouds': 'Significant cloud coverage',
+        'overcast clouds': 'Completely cloudy',
+        'light rain': 'Light precipitation, carry an umbrella',
+        'moderate rain': 'Steady rainfall expected',
+        'heavy rain': 'Heavy rainfall, potential for disruptions',
+        'thunderstorm': 'Electrical storm with potential heavy rain',
+        'snow': 'Snowy conditions, dress warmly',
+        'mist': 'Reduced visibility due to moisture',
+        'fog': 'Dense atmospheric moisture limiting visibility'
+    };
+
+    return descriptions[description.toLowerCase()] || 'Variable weather conditions';
+}
+
+const getWeatherDetails = (cityName, latitude, longitude) => {
+    // Show loading indicator
+    showLoading(currentWeatherDiv);
+    showLoading(weatherCardsDiv);
+
+    const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+
+    // Implement caching mechanism
+    const cacheKey = `weather_${latitude}_${longitude}`;
+    const cachedData = localStorage.getItem(cacheKey);
+    const cacheTime = localStorage.getItem(`${cacheKey}_timestamp`);
+
+    // Check if cached data exists and is less than 30 minutes old
+    if (cachedData && cacheTime && 
+        (Date.now() - parseInt(cacheTime) < 30 * 60 * 1000)) {
+        processWeatherData(JSON.parse(cachedData), cityName);
+        return;
+    }
+
+    fetch(WEATHER_API_URL)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Cache the data
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+        localStorage.setItem(`${cacheKey}_timestamp`, Date.now().toString());
+
+        processWeatherData(data, cityName);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        displayErrorMessage('Failed to fetch weather data. Please try again.', currentWeatherDiv);
+    });
+};
+
+const processWeatherData = (data, cityName) => {
+    // Filter the forecasts to get only one forecast per day
+    const uniqueForecastDays = [];
+    const fiveDaysForecast = data.list.filter(forecast => {
+        const forecastDate = new Date(forecast.dt_txt).getDate();
+        if (!uniqueForecastDays.includes(forecastDate)) {
+            return uniqueForecastDays.push(forecastDate);
+        }
+    });
+
+    // Clearing previous weather data
+    cityInput.value = "";
+    currentWeatherDiv.innerHTML = "";
+    weatherCardsDiv.innerHTML = "";
+
+    // Creating weather cards and adding them to the DOM
+    fiveDaysForecast.forEach((weatherItem, index) => {
+        const html = createWeatherCard(cityName, weatherItem, index);
+        if (index === 0) {
+            currentWeatherDiv.insertAdjacentHTML("beforeend", html);
+        } else {
+            weatherCardsDiv.insertAdjacentHTML("beforeend", html);
+        }
+    });
+
+    // Hide loading indicator
+    hideLoading();
+};
+
+const getCityCoordinates = () => {
+    const cityName = cityInput.value.trim();
+    
+    // Validate input
+    if (!validateCityInput(cityName)) {
+        displayErrorMessage('Please enter a valid city name (2-50 alphabetic characters).', currentWeatherDiv);
+        return;
+    }
+
+    const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+    
+    // Show loading
+    showLoading(currentWeatherDiv);
+
+    // Get entered city coordinates
+    fetch(API_URL)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (!data.length) {
+            displayErrorMessage(`No coordinates found for ${cityName}`, currentWeatherDiv);
+            return;
+        }
+        const { lat, lon, name } = data[0];
+        getWeatherDetails(name, lat, lon);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        displayErrorMessage('Failed to fetch city coordinates. Please try again.', currentWeatherDiv);
+    });
+};
+
+const getUserCoordinates = () => {
+    // Show loading
+    showLoading(currentWeatherDiv);
+
+    navigator.geolocation.getCurrentPosition(
+        position => {
+            const { latitude, longitude } = position.coords;
+            const API_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
+            
+            fetch(API_URL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const { name } = data[0];
+                getWeatherDetails(name, latitude, longitude);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                displayErrorMessage('Failed to fetch city name. Please try again.', currentWeatherDiv);
+            });
+        },
+        error => {
+            let errorMessage = 'Unknown geolocation error.';
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = "Location access denied. Please enable location permissions.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = "Location request timed out.";
+                    break;
+            }
+            displayErrorMessage(errorMessage, currentWeatherDiv);
+        }
+    );
+};
+
+// Event Listeners
+locationButton.addEventListener("click", getUserCoordinates);
+searchButton.addEventListener("click", getCityCoordinates);
+cityInput.addEventListener("keyup", e => {
+    if (e.key === "Enter") {
+        e.preventDefault(); // Prevent form submission
+        getCityCoordinates();
+    }
+});
+
+// Global variable to store original temperatures
+const originalTemperatures = {
+    current: [],
+    forecast: []
+};
+
+const convertTemperature = (temp, unit) => {
+    return unit === "F" ? (temp * 9/5 + 32).toFixed(1) : temp.toFixed(1);
+};
+
+const updateTemperatureUnit = () => {
+    const selectedUnit = document.querySelector('input[name="unit"]:checked').value;
+
+    // Reset and store original temperatures if not already done
+    if (originalTemperatures.current.length === 0) {
+        const currentTempElements = document.querySelectorAll(".current-weather h6");
+        currentTempElements.forEach(element => {
+            const tempRegex = /Temp(erature)?:\s*([-+]?\d*\.?\d+)°[CF]/;
+            const feelsLikeRegex = /Feels Like:\s*([-+]?\d*\.?\d+)°[CF]/;
+            
+            const tempMatch = element.textContent.match(tempRegex);
+            const feelsLikeMatch = element.textContent.match(feelsLikeRegex);
+            
+            if (tempMatch) {
+                originalTemperatures.current.push({
+                    element: element,
+                    type: 'temp',
+                    value: parseFloat(tempMatch[2])
+                });
+            }
+            
+            if (feelsLikeMatch) {
+                originalTemperatures.current.push({
+                    element: element,
+                    type: 'feelsLike',
+                    value: parseFloat(feelsLikeMatch[1])
+                });
+            }
+        });
+    }
+
+    if (originalTemperatures.forecast.length === 0) {
+        const forecastElements = document.querySelectorAll(".weather-cards .card h6");
+        forecastElements.forEach(element => {
+            const tempRegex = /Temp:\s*([-+]?\d*\.?\d+)°[CF]/;
+            const feelsLikeRegex = /Feels Like:\s*([-+]?\d*\.?\d+)°[CF]/;
+            
+            const tempMatch = element.textContent.match(tempRegex);
+            const feelsLikeMatch = element.textContent.match(feelsLikeRegex);
+            
+            if (tempMatch) {
+                originalTemperatures.forecast.push({
+                    element: element,
+                    type: 'temp',
+                    value: parseFloat(tempMatch[1])
+                });
+            }
+            
+            if (feelsLikeMatch) {
+                originalTemperatures.forecast.push({
+                    element: element,
+                    type: 'feelsLike',
+                    value: parseFloat(feelsLikeMatch[1])
+                });
+            }
+        });
+    }
+
+    // Update current weather
+    originalTemperatures.current.forEach(tempObj => {
+        const newTemp = convertTemperature(tempObj.value, selectedUnit);
+        
+        if (tempObj.type === 'temp') {
+            tempObj.element.textContent = tempObj.element.textContent.replace(
+                /Temp(erature)?:\s*([-+]?\d*\.?\d+)°[CF]/,
+                `Temp: ${newTemp}°${selectedUnit}`
+            );
+        } else if (tempObj.type === 'feelsLike') {
+            tempObj.element.textContent = tempObj.element.textContent.replace(
+                /Feels Like:\s*([-+]?\d*\.?\d+)°[CF]/,
+                `Feels Like: ${newTemp}°${selectedUnit}`
+            );
+        }
+    });
+
+    // Update forecast cards
+    originalTemperatures.forecast.forEach(tempObj => {
+        const newTemp = convertTemperature(tempObj.value, selectedUnit);
+        
+        if (tempObj.type === 'temp') {
+            tempObj.element.textContent = tempObj.element.textContent.replace(
+                /Temp:\s*([-+]?\d*\.?\d+)°[CF]/,
+                `Temp: ${newTemp}°${selectedUnit}`
+            );
+        } else if (tempObj.type === 'feelsLike') {
+            tempObj.element.textContent = tempObj.element.textContent.replace(
+                /Feels Like:\s*([-+]?\d*\.?\d+)°[CF]/,
+                `Feels Like: ${newTemp}°${selectedUnit}`
+            );
+        }
+    });
+};
+
+// Reset temperatures when a new search is performed
+const resetTemperatureTracking = () => {
+    originalTemperatures.current = [];
+    originalTemperatures.forecast = [];
+};
+
+// Modify existing event listeners to reset tracking
+searchButton.addEventListener("click", () => {
+    resetTemperatureTracking();
+    getCityCoordinates();
+});
+
+locationButton.addEventListener("click", () => {
+    resetTemperatureTracking();
+    getUserCoordinates();
+});
+
+// Listen for unit changes
+document.querySelectorAll('input[name="unit"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        updateTemperatureUnit();
+    });
+});
+</script>
+
+</html>
